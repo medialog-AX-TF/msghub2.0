@@ -207,6 +207,48 @@ README.md와 requirements.md 파일을 수정하여 다양한 LLM 모델 선택 
 
 변경된 내용을 GitHub 저장소에 성공적으로 푸시했습니다.
 
+### 프롬프트 10: LLM 모델 선택 기능 환경 설정 변경 요청
+
+**사용자 요청:**
+```
+관리자 설정에서 기본 LLM 모델 선택 기능  의 요구사항은  .env 에서 환경 설정으로 변경해 주세요
+```
+
+**결과:**
+README.md와 requirements.md 파일을 수정하여 관리자 설정에서 기본 LLM 모델 선택 기능을 .env 환경 설정으로 변경했습니다. 주요 업데이트 내용은 다음과 같습니다:
+
+1. **모델 선택 및 관리 기능 변경**:
+   - 관리자 설정에서 기본 LLM 모델 선택 기능 → .env 환경 설정 파일을 통한 기본 LLM 모델 설정
+   - 환경 변수를 통한 모델 전환 및 설정 관리 기능 추가
+   - .env 파일을 통한 모델별 API 키 및 설정 관리
+
+2. **LLM 모델 변경 시나리오 업데이트**:
+   - 사용자 확인 후 백엔드에서 .env 파일의 환경 변수를 업데이트하여 LLM 모델 변경
+
+3. **환경 변수 설정 상세화**:
+   ```
+   # .env 파일에 LLM API 키 및 모델 설정 입력
+   # CLAUDE_API_KEY=your_claude_api_key
+   # OPENAI_API_KEY=your_openai_api_key
+   # GEMINI_API_KEY=your_gemini_api_key
+   # DEFAULT_LLM_MODEL=claude-3-sonnet-20240229
+   # MODEL_TEMPERATURE=0.7
+   # MODEL_MAX_TOKENS=8192
+   ```
+
+4. **LLM 모델 변경 방법 업데이트**:
+   - .env 파일에서 DEFAULT_LLM_MODEL 환경 변수 수정
+   - 모델 파라미터 설정 (temperature, max_tokens 등)
+   - 서버 재시작 또는 환경 변수 리로드
+
+5. **제약사항 추가**:
+   - .env 파일 변경 시 서버 재시작 또는 환경 변수 리로드 필요
+
+6. **향후 개발 계획 추가**:
+   - 런타임 환경 변수 변경 기능 (서버 재시작 없이 모델 전환)
+
+변경된 내용을 GitHub 저장소에 성공적으로 푸시했습니다.
+
 ## 구현된 주요 기능
 
 1. **AI 어시스턴트 사이드바**
@@ -229,6 +271,7 @@ README.md와 requirements.md 파일을 수정하여 다양한 LLM 모델 선택 
 
 5. **LLM 모델 선택 및 관리**
    - 다양한 LLM 모델 지원 (Claude, GPT, Gemini 등)
+   - .env 파일을 통한 모델 설정 및 전환
    - 작업 특성에 따른 최적 모델 자동 선택
    - 모델 성능 모니터링 및 비용 최적화
 
@@ -242,3 +285,4 @@ README.md와 requirements.md 파일을 수정하여 다양한 LLM 모델 선택 
 6. 사용자 행동 패턴 학습을 통한 자동화 추천 기능
 7. 자체 호스팅 오픈소스 LLM 모델 지원
 8. 모델 앙상블 및 체인 기법 적용
+9. 런타임 환경 변수 변경 기능 (서버 재시작 없이 모델 전환)
