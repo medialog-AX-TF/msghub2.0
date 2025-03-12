@@ -1,0 +1,206 @@
+/* AI 어시스턴트 사이드바 스타일 */
+.right-sidebar {
+    width: 320px;
+    background-color: #fff;
+    border-left: 1px solid #ddd;
+    transition: width 0.3s ease;
+    position: relative;
+}
+
+.right-sidebar.collapsed {
+    width: 50px;
+}
+
+.ai-assistant-container {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+.ai-assistant-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px;
+    border-bottom: 1px solid #eee;
+    background-color: #f8f9fa;
+}
+
+.ai-assistant-header h3 {
+    font-size: 16px;
+    font-weight: 500;
+    color: #333;
+    margin: 0;
+}
+
+.btn-toggle {
+    width: 24px;
+    height: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    background-color: #e9ecef;
+    color: #495057;
+}
+
+.ai-assistant-body {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    padding: 15px;
+    overflow: hidden;
+}
+
+.chat-container {
+    flex: 1;
+    overflow-y: auto;
+    padding-right: 5px;
+    margin-bottom: 15px;
+}
+
+.chat-message {
+    display: flex;
+    margin-bottom: 15px;
+}
+
+.chat-message.user {
+    flex-direction: row-reverse;
+}
+
+.message-avatar {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    background-color: #007bff;
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
+    font-weight: bold;
+    margin-right: 10px;
+}
+
+.chat-message.user .message-avatar {
+    background-color: #6c757d;
+    margin-right: 0;
+    margin-left: 10px;
+}
+
+.message-content {
+    max-width: 80%;
+    padding: 10px 12px;
+    border-radius: 10px;
+    background-color: #f1f3f5;
+    font-size: 13px;
+    line-height: 1.4;
+}
+
+.chat-message.assistant .message-content {
+    background-color: #e7f5ff;
+    color: #1971c2;
+}
+
+.chat-message.user .message-content {
+    background-color: #f8f9fa;
+    color: #495057;
+}
+
+.chat-input-container {
+    display: flex;
+    gap: 10px;
+    margin-top: auto;
+}
+
+.chat-input {
+    flex: 1;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 20px;
+    resize: none;
+    height: 40px;
+    font-family: inherit;
+    font-size: 13px;
+}
+
+.btn-send {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background-color: #007bff;
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.ai-assistant-footer {
+    padding: 15px;
+    border-top: 1px solid #eee;
+}
+
+.quick-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.btn-quick-action {
+    padding: 6px 12px;
+    border-radius: 16px;
+    background-color: #e7f5ff;
+    color: #1971c2;
+    font-size: 12px;
+    border: 1px solid #d0ebff;
+    transition: all 0.2s ease;
+}
+
+.btn-quick-action:hover {
+    background-color: #d0ebff;
+}
+
+/* 반응형 스타일 */
+@media (max-width: 1200px) {
+    .right-sidebar {
+        position: fixed;
+        right: 0;
+        top: 60px;
+        bottom: 0;
+        z-index: 100;
+        box-shadow: -2px 0 5px rgba(0, 0, 0, 0.1);
+    }
+    
+    .right-sidebar.collapsed {
+        width: 50px;
+    }
+}
+
+/* 아이콘 스타일 */
+.icon-minimize:before {
+    content: "−";
+}
+
+.icon-maximize:before {
+    content: "+";
+}
+
+.icon-send:before {
+    content: "→";
+}
+
+/* 접힌 상태의 스타일 */
+.right-sidebar.collapsed .ai-assistant-body,
+.right-sidebar.collapsed .ai-assistant-footer,
+.right-sidebar.collapsed .ai-assistant-header h3 {
+    display: none;
+}
+
+.right-sidebar.collapsed .ai-assistant-header {
+    padding: 13px;
+    justify-content: center;
+}
+
+.right-sidebar.collapsed .btn-toggle {
+    transform: rotate(180deg);
+} 
