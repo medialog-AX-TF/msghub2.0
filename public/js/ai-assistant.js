@@ -229,4 +229,351 @@ document.addEventListener('DOMContentLoaded', function() {
             chatContainer.scrollTop = chatContainer.scrollHeight;
         });
     }
-}); 
+});
+
+// AI 어시스턴트 관련 자바스크립트
+
+// AI 어시스턴트 클래스
+class AIAssistant {
+    constructor() {
+        this.container = document.querySelector('.ai-assistant');
+        this.chat = document.querySelector('.ai-chat');
+        this.form = document.querySelector('.ai-input-form');
+        this.input = document.querySelector('.ai-input-textarea');
+        this.sendButton = document.querySelector('.ai-send-btn');
+        this.toggleButton = document.querySelector('.ai-toggle');
+        this.closeButton = document.querySelector('.ai-controls button:nth-child(2)');
+        this.minimizeButton = document.querySelector('.ai-controls button:nth-child(1)');
+        this.quickActionButtons = document.querySelectorAll('.quick-action-btn');
+        this.modelInfo = document.querySelector('.ai-model-info');
+        this.modelSettings = document.querySelector('.ai-model-settings');
+        
+        this.currentModel = 'Claude 3 Opus';
+        this.isProcessing = false;
+        
+        this.init();
+    }
+    
+    init() {
+        // 이벤트 리스너 등록
+        this.registerEventListeners();
+        
+        // 초기 웰컴 메시지
+        setTimeout(() => {
+            this.addMessage('안녕하세요! 메시지허브 AI 어시스턴트입니다. 무엇을 도와드릴까요?', 'ai');
+        }, 500);
+    }
+    
+    registerEventListeners() {
+        // 토글 버튼
+        if (this.toggleButton) {
+            this.toggleButton.addEventListener('click', () => this.toggleAssistant());
+        }
+        
+        // 닫기 버튼
+        if (this.closeButton) {
+            this.closeButton.addEventListener('click', () => this.closeAssistant());
+        }
+        
+        // 최소화 버튼
+        if (this.minimizeButton) {
+            this.minimizeButton.addEventListener('click', () => this.minimizeAssistant());
+        }
+        
+        // 메시지 전송 폼
+        if (this.form) {
+            this.form.addEventListener('submit', (e) => this.handleSubmit(e));
+        }
+        
+        // 입력창 자동 높이 조절
+        if (this.input) {
+            this.input.addEventListener('input', () => this.adjustInputHeight());
+            
+            // Enter 키로 전송 (Shift+Enter는 줄바꿈)
+            this.input.addEventListener('keydown', (e) => {
+                if (e.key === 'Enter' && !e.shiftKey) {
+                    e.preventDefault();
+                    this.form.dispatchEvent(new Event('submit'));
+                }
+            });
+        }
+        
+        // 빠른 액션 버튼
+        if (this.quickActionButtons.length) {
+            this.quickActionButtons.forEach(button => {
+                button.addEventListener('click', (e) => this.handleQuickAction(e));
+            });
+        }
+        
+        // 모델 설정 버튼
+        if (this.modelSettings) {
+            this.modelSettings.addEventListener('click', () => this.showModelSettings());
+        }
+    }
+    
+    // AI 어시스턴트 토글
+    toggleAssistant() {
+        if (this.container) {
+            this.container.classList.toggle('active');
+        }
+    }
+    
+    // AI 어시스턴트 닫기
+    closeAssistant() {
+        if (this.container) {
+            this.container.classList.remove('active');
+        }
+    }
+    
+    // AI 어시스턴트 최소화
+    minimizeAssistant() {
+        if (this.container) {
+            this.container.classList.toggle('minimized');
+            
+            // 아이콘 변경
+            const icon = this.minimizeButton.querySelector('i');
+            if (icon) {
+                if (this.container.classList.contains('minimized')) {
+                    icon.classList.remove('fa-minus');
+                    icon.classList.add('fa-plus');
+                } else {
+                    icon.classList.remove('fa-plus');
+                    icon.classList.add('fa-minus');
+                }
+            }
+        }
+    }
+    
+    // 메시지 전송 처리
+    handleSubmit(e) {
+        e.preventDefault();
+        
+        if (this.isProcessing) return;
+        
+        const message = this.input.value.trim();
+        if (message) {
+            // 사용자 메시지 추가
+            this.addMessage(message, 'user');
+            
+            // 입력창 초기화
+            this.input.value = '';
+            this.adjustInputHeight();
+            
+            // 처리 중 상태로 변경
+            this.isProcessing = true;
+            this.sendButton.disabled = true;
+            
+            // AI 응답 처리 (실제로는 서버 API 호출)
+            this.processUserMessage(message);
+        }
+    }
+    
+    // 사용자 메시지 처리 및 AI 응답 생성
+    processUserMessage(message) {
+        // 로딩 표시
+        this.showTypingIndicator();
+        
+        // 실제 구현에서는 서버 API 호출
+        setTimeout(() => {
+            // 로딩 표시 제거
+            this.hideTypingIndicator();
+            
+            // 메시지 내용에 따른 응답 생성 (데모용)
+            let response = '';
+            
+            if (message.includes('템플릿') && message.includes('찾아')) {
+                response = '템플릿 검색 결과입니다:<br><br>' +
+                           '1. <b>7월 프로모션 안내</b> (TP00123) - 카카오톡 알림톡<br>' +
+                           '2. <b>여름 이벤트 안내</b> (TP00119) - RCS<br><br>' +
+                           '어떤 템플릿으로 발송하시겠어요?';
+            } else if (message.includes('발송') || message.includes('보내')) {
+                response = '메시지 발송을 도와드리겠습니다. 어떤 템플릿으로 발송하시겠어요?<br><br>' +
+                           '최근 사용한 템플릿:<br>' +
+                           '- 7월 프로모션 안내<br>' +
+                           '- 배송 완료 안내<br>' +
+                           '- 결제 완료 안내';
+            } else if (message.includes('통계') || message.includes('결과')) {
+                response = '최근 발송 결과입니다:<br><br>' +
+                           '- 총 발송: 1,245건<br>' +
+                           '- 성공: 1,230건 (98.8%)<br>' +
+                           '- 실패: 15건 (1.2%)<br><br>' +
+                           '자세한 통계를 확인하시겠어요?';
+            } else if (message.includes('도움말') || message.includes('사용법')) {
+                response = '메시지허브 사용 가이드입니다:<br><br>' +
+                           '1. <b>템플릿 검색</b>: "7월 프로모션 템플릿 찾아줘"<br>' +
+                           '2. <b>메시지 발송</b>: "고객들에게 이벤트 안내 발송해줘"<br>' +
+                           '3. <b>발송 결과 확인</b>: "오늘 발송 결과 보여줘"<br>' +
+                           '4. <b>템플릿 생성</b>: "새 알림톡 템플릿 만들어줘"';
+            } else {
+                response = '죄송합니다. 요청하신 내용을 정확히 이해하지 못했습니다. 다음과 같은 작업을 도와드릴 수 있습니다:<br><br>' +
+                           '- 템플릿 검색 및 발송<br>' +
+                           '- 발송 결과 조회<br>' +
+                           '- 새 템플릿 생성<br>' +
+                           '- 메시지 예약 발송';
+            }
+            
+            // AI 응답 추가
+            this.addMessage(response, 'ai');
+            
+            // 처리 완료 상태로 변경
+            this.isProcessing = false;
+            this.sendButton.disabled = false;
+        }, 1500);
+    }
+    
+    // 메시지 추가
+    addMessage(text, sender) {
+        const now = new Date();
+        const timeString = `${now.getHours().toString().padStart(2, '0')}:${now.getMinutes().toString().padStart(2, '0')}`;
+        
+        const messageHTML = `
+            <div class="chat-message ${sender === 'user' ? 'user' : ''}">
+                <div class="chat-avatar ${sender}">
+                    <i class="fas fa-${sender === 'user' ? 'user' : 'robot'}"></i>
+                </div>
+                <div>
+                    <div class="chat-bubble">${text}</div>
+                    <div class="chat-time">${timeString}</div>
+                </div>
+            </div>
+        `;
+        
+        this.chat.insertAdjacentHTML('beforeend', messageHTML);
+        
+        // 스크롤을 최하단으로 이동
+        this.scrollToBottom();
+    }
+    
+    // 입력창 높이 자동 조절
+    adjustInputHeight() {
+        if (this.input) {
+            this.input.style.height = 'auto';
+            this.input.style.height = (this.input.scrollHeight) + 'px';
+            
+            // 최대 높이 제한
+            if (this.input.scrollHeight > 150) {
+                this.input.style.height = '150px';
+                this.input.style.overflowY = 'auto';
+            } else {
+                this.input.style.overflowY = 'hidden';
+            }
+        }
+    }
+    
+    // 빠른 액션 버튼 처리
+    handleQuickAction(e) {
+        const action = e.target.textContent.trim();
+        
+        if (this.input) {
+            this.input.value = action;
+            this.input.focus();
+            this.adjustInputHeight();
+        }
+    }
+    
+    // 타이핑 표시기 추가
+    showTypingIndicator() {
+        const typingHTML = `
+            <div class="chat-message typing-indicator">
+                <div class="chat-avatar ai">
+                    <i class="fas fa-robot"></i>
+                </div>
+                <div>
+                    <div class="chat-bubble">
+                        <span class="dot"></span>
+                        <span class="dot"></span>
+                        <span class="dot"></span>
+                    </div>
+                </div>
+            </div>
+        `;
+        
+        this.chat.insertAdjacentHTML('beforeend', typingHTML);
+        this.scrollToBottom();
+    }
+    
+    // 타이핑 표시기 제거
+    hideTypingIndicator() {
+        const typingIndicator = this.chat.querySelector('.typing-indicator');
+        if (typingIndicator) {
+            typingIndicator.remove();
+        }
+    }
+    
+    // 스크롤을 최하단으로 이동
+    scrollToBottom() {
+        if (this.chat) {
+            this.chat.scrollTop = this.chat.scrollHeight;
+        }
+    }
+    
+    // 모델 설정 표시
+    showModelSettings() {
+        // 실제 구현에서는 모달 또는 드롭다운 메뉴 표시
+        alert('AI 모델 설정은 .env 파일에서 변경할 수 있습니다.');
+    }
+}
+
+// DOM이 로드된 후 AI 어시스턴트 초기화
+document.addEventListener('DOMContentLoaded', function() {
+    // AI 어시스턴트 CSS 추가
+    addTypingIndicatorStyles();
+    
+    // AI 어시스턴트 인스턴스 생성
+    window.aiAssistant = new AIAssistant();
+});
+
+// 타이핑 표시기 스타일 추가
+function addTypingIndicatorStyles() {
+    const style = document.createElement('style');
+    style.textContent = `
+        .typing-indicator .chat-bubble {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-width: 40px;
+            padding: 12px 15px;
+        }
+        
+        .typing-indicator .dot {
+            display: inline-block;
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background-color: #999;
+            margin: 0 2px;
+            animation: typing-animation 1.4s infinite ease-in-out both;
+        }
+        
+        .typing-indicator .dot:nth-child(1) {
+            animation-delay: 0s;
+        }
+        
+        .typing-indicator .dot:nth-child(2) {
+            animation-delay: 0.2s;
+        }
+        
+        .typing-indicator .dot:nth-child(3) {
+            animation-delay: 0.4s;
+        }
+        
+        @keyframes typing-animation {
+            0%, 80%, 100% { 
+                transform: scale(0.8);
+                opacity: 0.6;
+            }
+            40% { 
+                transform: scale(1);
+                opacity: 1;
+            }
+        }
+        
+        .ai-assistant.minimized .ai-chat,
+        .ai-assistant.minimized .ai-quick-actions,
+        .ai-assistant.minimized .ai-input,
+        .ai-assistant.minimized .ai-model-info {
+            display: none;
+        }
+    `;
+    document.head.appendChild(style);
+} 
