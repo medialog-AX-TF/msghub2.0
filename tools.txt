@@ -265,7 +265,47 @@
     },
     {
       "name": "mcp__sequentialthinking",
-      "description": "A detailed tool for dynamic and reflective problem-solving through thoughts.\nThis tool helps analyze problems through a flexible thinking process that can adapt and evolve.\nEach thought can build on, question, or revise previous insights as understanding deepens.\n\nWhen to use this tool:\n- Breaking down complex problems into steps\n- Planning and design with room for revision\n- Analysis that might need course correction\n- Problems where the full scope might not be clear initially\n- Problems that require a multi-step solution\n- Tasks that need to maintain context over multiple steps\n- Situations where irrelevant information needs to be filtered out\n\nKey features:\n- You can adjust total_thoughts up or down as you progress\n- You can question or revise previous thoughts\n- You can add more thoughts even after reaching what seemed like the end\n- You can express uncertainty and explore alternative approaches\n- Not every thought needs to build linearly - you can branch or backtrack\n- Generates a solution hypothesis\n- Verifies the hypothesis based on the Chain of Thought steps\n- Repeats the process until satisfied\n- Provides a correct answer\n\nParameters explained:\n- thought: Your current thinking step, which can include:\n* Regular analytical steps\n* Revisions of previous thoughts\n* Questions about previous decisions\n* Realizations about needing more analysis\n* Changes in approach\n* Hypothesis generation\n* Hypothesis verification\n- next_thought_needed: True if you need more thinking, even if at what seemed like the end\n- thought_number: Current number in sequence (can go beyond initial total if needed)\n- total_thoughts: Current estimate of thoughts needed (can be adjusted up/down)\n- is_revision: A boolean indicating if this thought revises previous thinking\n- revises_thought: If is_revision is true, which thought number is being reconsidered\n- branch_from_thought: If branching, which thought number is the branching point\n- branch_id: Identifier for the current branch (if any)\n- needs_more_thoughts: If reaching end but realizing more thoughts needed\n\nYou should:\n1. Start with an initial estimate of needed thoughts, but be ready to adjust\n2. Feel free to question or revise previous thoughts\n3. Don't hesitate to add more thoughts if needed, even at the \"end\"\n4. Express uncertainty when present\n5. Mark thoughts that revise previous thinking or branch into new paths\n6. Ignore information that is irrelevant to the current step\n7. Generate a solution hypothesis when appropriate\n8. Verify the hypothesis based on the Chain of Thought steps\n9. Repeat the process until satisfied with the solution\n10. Provide a single, ideally correct answer as the final output\n11. Only set next_thought_needed to false when truly done and a satisfactory answer is reached",
+ {
+      "name": "mcp__sequentialthinking",
+      "description": "A detailed tool for dynamic and reflective problem-solving through thoughts.\n
+      This tool helps analyze problems through a flexible thinking process that can adapt and evolve.\n
+      Each thought can build on, question, or revise previous insights as understanding deepens.\n\n
+      When to use this tool:\n- Breaking down complex problems into steps\n- Planning and design with room for revision\n- 
+      Analysis that might need course correction\n- Problems where the full scope might not be clear initially\n- 
+      Problems that require a multi-step solution\n- Tasks that need to maintain context over multiple steps\n- 
+      Situations where irrelevant information needs to be filtered out\n\nKey features:\n- 
+      You can adjust total_thoughts up or down as you progress\n- 
+      You can question or revise previous thoughts\n- 
+      You can add more thoughts even after reaching what seemed like the end\n- 
+      You can express uncertainty and explore alternative approaches\n- 
+      Not every thought needs to build linearly - you can branch or backtrack\n- 
+      Generates a solution hypothesis\n- 
+      Verifies the hypothesis based on the Chain of Thought steps\n- 
+      Repeats the process until satisfied\n- 
+      Provides a correct answer\n\nParameters explained:\n- 
+      thought: Your current thinking step, which can include:\n* 
+      Regular analytical steps\n* Revisions of previous thoughts\n* 
+      Questions about previous decisions\n* Realizations about needing more analysis\n* 
+      Changes in approach\n* Hypothesis generation\n* Hypothesis verification\n- 
+      next_thought_needed: True if you need more thinking, even if at what seemed like the end\n- 
+      thought_number: Current number in sequence (can go beyond initial total if needed)\n- 
+      total_thoughts: Current estimate of thoughts needed (can be adjusted up/down)\n- 
+      is_revision: A boolean indicating if this thought revises previous thinking\n- 
+      revises_thought: If is_revision is true, which thought number is being reconsidered\n- 
+      branch_from_thought: If branching, which thought number is the branching point\n- 
+      branch_id: Identifier for the current branch (if any)\n- 
+      needs_more_thoughts: If reaching end but realizing more thoughts needed\n\nYou should:\n
+      1. Start with an initial estimate of needed thoughts, but be ready to adjust\n
+      2. Feel free to question or revise previous thoughts\n
+      3. Don't hesitate to add more thoughts if needed, even at the \"end\"\n
+      4. Express uncertainty when present\n
+      5. Mark thoughts that revise previous thinking or branch into new paths\n
+      6. Ignore information that is irrelevant to the current step\n
+      7. Generate a solution hypothesis when appropriate\n
+      8. Verify the hypothesis based on the Chain of Thought steps\n
+      9. Repeat the process until satisfied with the solution\n
+      10. Provide a single, ideally correct answer as the final output\n
+      11. Only set next_thought_needed to false when truly done and a satisfactory answer is reached",
       "input_schema": {
         "type": "object",
         "required": [
@@ -360,3 +400,44 @@
   "presencePenalty": 0,
   "frequencyPenalty": 0
 }
+
+
+"description": "생각을 통한 역동적이고 반영적인 문제 해결을 위한 상세한 도구.\n
+      이 도구는 문제를 분석하는 데 있어 유연한 사고 과정을 활용하여 변화와 적응이 가능하도록 돕습니다.\n
+      각 사고 단계는 기존의 통찰을 확장하거나, 의문을 제기하거나, 이해가 깊어짐에 따라 수정할 수 있습니다.\n\n
+      이 도구를 사용할 시점:\n- 복잡한 문제를 단계별로 분석할 때\n- 수정이 필요한 기획 및 설계를 할 때\n- 
+      과정에서 방향 수정이 필요할 가능성이 있는 분석을 수행할 때\n- 문제의 전체 범위가 처음부터 명확하지 않을 때\n- 
+      여러 단계의 해결 과정이 필요한 문제를 다룰 때\n- 여러 단계에 걸쳐 문맥을 유지해야 하는 작업을 수행할 때\n- 
+      불필요한 정보를 걸러내야 하는 상황에서\n\n주요 기능:\n- 
+      진행 상황에 따라 total_thoughts(총 사고 단계 수)를 조정할 수 있음\n- 
+      이전 사고 과정을 질문하거나 수정할 수 있음\n- 
+      예상한 결론에 도달한 후에도 추가적인 사고를 진행할 수 있음\n- 
+      불확실성을 표현하고 대체 접근 방식을 탐색할 수 있음\n- 
+      모든 사고 과정이 선형적으로 진행될 필요는 없음 – 분기하거나 되돌아갈 수 있음\n- 
+      해결책 가설을 생성할 수 있음\n- 
+      연쇄적 사고(Chain of Thought) 과정을 기반으로 가설을 검증함\n- 
+      만족할 만한 결과가 나올 때까지 반복 가능\n- 
+      최종적으로 올바른 답을 제공함\n\n파라미터 설명:\n- 
+      thought: 현재 진행 중인 사고 단계로, 다음을 포함할 수 있음:\n* 
+      일반적인 분석 단계\n* 이전 사고 과정의 수정\n* 
+      이전 결정에 대한 질문\n* 추가 분석이 필요하다는 깨달음\n* 
+      접근 방식의 변경\n* 해결책 가설 생성\n* 가설 검증\n- 
+      next_thought_needed: 현재 사고가 끝난 것처럼 보이더라도 추가적인 사고가 필요한 경우 true\n- 
+      thought_number: 현재 사고 단계 번호 (필요하면 초기 설정된 총 단계 수를 초과할 수도 있음)\n- 
+      total_thoughts: 필요한 사고 단계 수의 현재 예상치 (증가/감소 가능)\n- 
+      is_revision: 현재 사고가 이전 사고를 수정하는 경우 true\n- 
+      revises_thought: is_revision이 true일 경우, 수정하고 있는 사고 단계 번호\n- 
+      branch_from_thought: 분기하는 경우, 분기 시작 지점이 되는 사고 단계 번호\n- 
+      branch_id: 현재 분기 식별자 (있는 경우)\n- 
+      needs_more_thoughts: 마지막 단계에 도달했지만 추가적인 사고가 필요하다고 판단될 경우 true\n\n사용 지침:\n
+      1. 처음에는 필요한 사고 단계 수를 대략적으로 설정하되, 필요에 따라 조정할 준비를 해야 함\n
+      2. 이전 사고 과정을 자유롭게 질문하거나 수정할 수 있음\n
+      3. 예상한 '끝'에 도달했더라도 추가 사고가 필요하다면 망설이지 말 것\n
+      4. 불확실한 점이 있을 경우 명확하게 표현할 것\n
+      5. 이전 사고를 수정하는 경우 또는 새로운 경로로 분기하는 경우 이를 명확히 표시할 것\n
+      6. 현재 단계에 불필요한 정보는 무시할 것\n
+      7. 필요할 때 해결책 가설을 생성할 것\n
+      8. 연쇄적 사고(Chain of Thought) 과정을 기반으로 가설을 검증할 것\n
+      9. 만족할 만한 해결책이 나올 때까지 과정을 반복할 것\n
+      10. 최종적으로 단일하고 올바른 답을 제공할 것\n
+      11. next_thought_needed 값을 false로 설정하는 것은 정말로 완료되고 만족스러운 답을 얻었을 때만 할 것"
