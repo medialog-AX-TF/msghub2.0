@@ -26,6 +26,27 @@
    - 웹사이트의 특정 기능 실행 (메뉴 이동, 텍스트 입력 등)
 5. **결과 반환**: 실행 결과를 사용자에게 표시
 
+### LLM 모델 선택
+
+메시지허브 AI 어시스턴트는 다양한 LLM 모델을 지원하며, 사용자 또는 관리자가 필요에 따라 선택할 수 있습니다:
+
+- **Claude 모델**:
+  - Claude 3 Opus: 가장 강력한 추론 및 복잡한 작업 처리 능력
+  - Claude 3 Sonnet: 성능과 속도의 균형이 잘 맞는 중간 모델
+  - Claude 3 Haiku: 빠른 응답 속도와 비용 효율성이 높은 경량 모델
+
+- **OpenAI 모델**:
+  - GPT-4o: 최신 멀티모달 기능과 고급 추론 능력
+  - GPT-4: 복잡한 작업 및 고급 추론에 적합
+  - GPT-3.5 Turbo: 빠른 응답과 비용 효율성이 높은 모델
+
+- **기타 지원 모델**:
+  - Gemini (Google): 멀티모달 기능 및 코드 생성에 강점
+  - Llama 3 (Meta): 오픈소스 기반 모델로 자체 호스팅 가능
+  - Mistral: 경량 모델로 자체 호스팅 환경에 적합
+
+모델 선택은 관리자 설정에서 변경할 수 있으며, 각 모델의 특성에 따라 응답 품질, 속도, 비용이 달라질 수 있습니다.
+
 ### System Prompt 구성
 
 System Prompt는 AI 어시스턴트의 역할과 기능을 정의하며 다음 요소를 포함합니다:
@@ -69,6 +90,11 @@ System Prompt는 AI 어시스턴트의 역할과 기능을 정의하며 다음 �
    - 발송 오류 시 해결 방법 제안
    - 발송 결과 분석 및 보고서 생성
 
+4. **LLM 모델 선택 및 관리**
+   - 다양한 LLM 모델 지원 (Claude, GPT, Gemini 등)
+   - 작업 특성에 따른 최적 모델 자동 선택
+   - 모델 성능 모니터링 및 비용 최적화
+
 ## 프로젝트 구조
 
 ```
@@ -88,7 +114,11 @@ msghub/
 ├── server/
 │   ├── llm/                # LLM 연동 모듈
 │   │   ├── prompt.js       # 프롬프트 관리
-│   │   └── tools.js        # 도구 정의 및 스키마
+│   │   ├── tools.js        # 도구 정의 및 스키마
+│   │   └── models/         # LLM 모델 연동
+│   │       ├── claude.js   # Claude 모델 연동
+│   │       ├── openai.js   # OpenAI 모델 연동
+│   │       └── others.js   # 기타 모델 연동
 │   └── api/                # 백엔드 API
 └── src/
     ├── components/         # 컴포넌트
@@ -112,6 +142,10 @@ msghub/
    ```
    cp .env.example .env
    # .env 파일에 LLM API 키 등 필요한 정보 입력
+   # CLAUDE_API_KEY=your_claude_api_key
+   # OPENAI_API_KEY=your_openai_api_key
+   # GEMINI_API_KEY=your_gemini_api_key
+   # DEFAULT_LLM_MODEL=claude-3-sonnet-20240229
    ```
 
 4. 서버 실행
@@ -145,9 +179,18 @@ msghub/
    - 완료된 작업 결과 보고
    - 추가 작업 제안
 
+4. LLM 모델 선택 (관리자 설정)
+   - 설정 메뉴에서 기본 LLM 모델 선택
+   - 작업별 최적 모델 자동 선택 설정
+   - API 키 및 모델 파라미터 설정
+
 ## 향후 개발 계획
 
-1. 고급 LLM 모델 연동 (Claude 3.7 Sonnet 등)
+1. 고급 LLM 모델 연동 확장
+   - 추가 모델 지원 (Cohere, Mistral AI 등)
+   - 모델 체인 및 앙상블 기법 적용
+   - 자체 파인튜닝 모델 지원
+
 2. 사용자 맞춤형 추천 기능 추가
 3. 발송 이력 분석 및 최적 발송 시간 추천
 4. 다국어 지원
@@ -157,7 +200,11 @@ msghub/
 
 - **프론트엔드**: HTML5, CSS3, JavaScript (ES6+), React
 - **백엔드**: Node.js, Express
-- **LLM 연동**: Claude API, OpenAI API
+- **LLM 연동**: 
+  - Anthropic Claude API
+  - OpenAI API
+  - Google Gemini API
+  - 기타 LLM API (Cohere, Mistral 등)
 - **데이터베이스**: MongoDB
 - **배포**: Docker, AWS
 
