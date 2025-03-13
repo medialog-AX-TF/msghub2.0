@@ -16,6 +16,7 @@
 
 #### 1.2.1 필수 지원 모델
 - **Claude 모델**
+  - Claude 3.7 Sonnet: 기본 모델, 최적의 성능과 속도 균형 제공
   - Claude 3 Opus: 가장 강력한 성능, 복잡한 작업에 적합
   - Claude 3 Sonnet: 균형 잡힌 성능과 속도
   - Claude 3 Haiku: 빠른 응답 속도, 간단한 작업에 적합
@@ -35,7 +36,7 @@
   - Mistral: 경량화된 고성능 모델
 
 #### 1.2.3 모델 선택 및 관리 기능
-- .env 환경 설정 파일을 통한 기본 LLM 모델 설정
+- .env 환경 설정 파일을 통한 기본 LLM 모델 설정 (기본값: claude-3-7-sonnet)
 - 환경 변수를 통한 모델 전환 및 설정 관리
 - 모델 API 키 및 설정 관리
 - 모델 변경 시 서버 재시작 또는 환경 변수 리로드 필요
@@ -213,7 +214,7 @@
 **관리자**: "LLM 모델을 GPT-4로 변경하고 싶습니다."
 
 **절차**:
-1. .env 파일에서 `DEFAULT_LLM_MODEL=gpt-4` 설정
+1. .env 파일에서 `DEFAULT_LLM_MODEL=gpt-4` 설정 (기본값은 `DEFAULT_LLM_MODEL=claude-3-7-sonnet`)
 2. 필요한 경우 `OPENAI_API_KEY` 확인 및 설정
 3. 서버 재시작 또는 환경 변수 리로드
 4. 모델 변경 확인

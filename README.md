@@ -27,11 +27,12 @@
 
 ## LLM 모델 선택
 
-메시지허브는 다양한 LLM 모델을 지원합니다:
+메시지허브는 다양한 LLM 모델을 지원하며, 기본적으로 Claude 3.7 Sonnet을 사용합니다:
 
 ### 지원 모델
 
 1. **Claude 모델**
+   - Claude 3.7 Sonnet: 기본 모델, 최적의 성능과 속도 균형 제공
    - Claude 3 Opus: 가장 강력한 성능, 복잡한 작업에 적합
    - Claude 3 Sonnet: 균형 잡힌 성능과 속도
    - Claude 3 Haiku: 빠른 응답 속도, 간단한 작업에 적합
@@ -57,12 +58,12 @@ OPENAI_API_KEY=your_openai_api_key
 GEMINI_API_KEY=your_gemini_api_key
 
 # 기본 LLM 모델 설정
-DEFAULT_LLM_MODEL=claude-3-opus
+DEFAULT_LLM_MODEL=claude-3-7-sonnet
 # 또는 DEFAULT_LLM_MODEL=gpt-4o, DEFAULT_LLM_MODEL=gemini-pro 등
 
 # 모델 파라미터 설정
 MODEL_TEMPERATURE=0.7
-MODEL_MAX_TOKENS=4000
+MODEL_MAX_TOKENS=8192
 ```
 
 모델 변경 시 서버 재시작 또는 환경 변수 리로드가 필요합니다.
