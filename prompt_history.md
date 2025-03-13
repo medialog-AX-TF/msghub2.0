@@ -291,6 +291,33 @@ LG U+ 메시지허브 서비스의 메시지 상태 조회 화면 이미지를 �
 
 프롬프트 히스토리 파일을 업데이트하여 이번 작업 내용을 기록했습니다.
 
+### 프롬프트 13: 기본 LLM 모델 변경 요청
+
+**사용자 요청:**
+```
+클로드 모델은 소넷 3.7 을 기본으로 사용 할수 있도록 요구사항과 리드미를 수정해 주세요  
+```
+
+**결과:**
+요구사항 파일(requirements.md), README 파일 및 .env.example 파일을 수정하여 Claude 3.7 Sonnet을 기본 LLM 모델로 설정했습니다. 주요 변경 사항은 다음과 같습니다:
+
+1. **requirements.md 파일 수정**:
+   - Claude 3.7 Sonnet을 기본 모델로 추가
+   - 모델 선택 및 관리 기능 섹션에서 기본값을 claude-3-7-sonnet으로 명시
+   - LLM 모델 변경 절차에서 기본값 정보 추가
+
+2. **README.md 파일 수정**:
+   - LLM 모델 선택 섹션에서 Claude 3.7 Sonnet을 기본 모델로 명시
+   - 지원 모델 목록에 Claude 3.7 Sonnet 추가
+   - .env 파일 설정 예시에서 DEFAULT_LLM_MODEL 값을 claude-3-7-sonnet으로 변경
+   - MODEL_MAX_TOKENS 값을 8192로 증가
+
+3. **.env.example 파일 수정**:
+   - 기본 LLM 모델 설정을 claude-3-7-sonnet으로 변경
+   - 모델 파라미터 설정에서 MODEL_MAX_TOKENS 값을 8192로 증가
+
+변경된 내용을 GitHub 저장소에 성공적으로 푸시했습니다.
+
 ## 구현된 주요 기능
 
 1. **AI 어시스턴트 사이드바**
